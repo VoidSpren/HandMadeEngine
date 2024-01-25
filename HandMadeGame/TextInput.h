@@ -11,7 +11,6 @@ namespace voi {
 		int displayCharCount = 0;
 		int displayOffset = 0;
 		int editPos = 0;
-		std::string backingTxt = "";
 
 
 	public:
@@ -45,6 +44,29 @@ namespace voi {
 			box.z = x; box.w = y;
 
 			calcDisplayProperties();
+		}
+
+		virtual void setText(std::string nText) override {
+			backingTxt = nText;
+			editPos = backingTxt.size();
+			if (backingTxt.size() > displayCharCount) {
+				displayOffset = editPos - displayCharCount;
+			}
+			else
+			{
+				displayOffset = 0;
+			}
+		}
+
+		void setText(const char* nText) { setText(std::string(nText)); }
+
+		virtual std::string getText() const override { return backingTxt; }
+
+		template<typename _OnEnter>
+		void onEnter(KeyAccess key, _OnEnter action) {
+			if (isActive && (key == voi::RETURN)) {
+				action();
+			}
 		}
 
 		void onKeyDown(KeyAccess key) {
@@ -90,7 +112,7 @@ namespace voi {
 							backingTxt.erase(editPos - 1, 1);
 
 
-							if (displayOffset + text.size() > backingTxt.size()) {
+							if (displayOffset + text.size() > backingTxt.size() || (editPos - displayOffset - 1) < 0) {
 								displayOffset--;
 							}
 							text.replace(0, text.size(), backingTxt, displayOffset, text.size());
@@ -177,7 +199,7 @@ namespace voi {
 			InteractTextBox::Draw();
 
 			if (isActive) {
-				engine->colorSet = { 255,255,255 };
+				engine->colorSet = backColor;
 				if ((displayOffset + displayCharCount) < backingTxt.size()) {
 					engine->FillRect(lineX + charW * displayCharCount - charW / 3, lineY, charW / 3, charH + 1);
 				}
@@ -185,7 +207,7 @@ namespace voi {
 					engine->FillRect(lineX, lineY, charW / 3, charH + 1);
 				}
 
-				if ((int(engine->TotalTime()) - engine->TotalTime()) > 0.5f) {
+				if ((engine->TotalTime() - int(engine->TotalTime())) > 0.5f) {
 					engine->colorSet = { 0,0,0 };
 
 					if ((editPos - displayOffset) >= displayCharCount) engine->FillRect(lineX + charW * displayCharCount - charW / 3, lineY, charW / 3, charH + 1);

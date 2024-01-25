@@ -23,7 +23,7 @@ namespace voi{
 
 	struct WinScreenBuffInf {
 		BITMAPINFO info;
-		void* buffer;
+		void* buffer = NULL;
 		int width;
 		int height;
 		int pxBytes;
@@ -2241,7 +2241,7 @@ namespace voi{
 				deltaTime = elapsedTime.count();
 				ts2 = ts1;
 
-				elapsedTime = tStart - ts1;
+				elapsedTime = ts1 - tStart;
 				totalTime = elapsedTime.count();
 
 				if (_padConnected || !(_frameCount & 0x3F)) {

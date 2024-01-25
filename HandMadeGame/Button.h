@@ -6,6 +6,11 @@ namespace voi {
 	class Button : public InteractTextBox {
 	public:
 
+		Button() {
+			backOverColor = { 200,200,200 };
+			backClickColor = { 150,150,150 };
+		}
+
 		template<typename _OnClick>
 		void onClick(bool state, _OnClick action) {
 			if (state && over) {
@@ -21,7 +26,7 @@ namespace voi {
 						backColor = backOverColor;
 						borderColor = borderOverColor;
 
-						action(*this);
+						action();
 					}
 				}
 				else {

@@ -110,7 +110,7 @@ namespace voi {
 		Vec4(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {}
 		Vec4(const Vec4& other) : x(other.x), y(other.y), z(other.z), w(other.w) {}
 		Vec4(const Pixel& other);
-		template<typename E> Vec4(const Vec4<E>& other) : x(other.x), y(other.y), w(other.w) {}
+		template<typename E> Vec4(const Vec4<E>& other) : x(other.x), y(other.y), z(other.z), w(other.w) {}
 
 
 		//static T dotProd(const Vec4& a, const Vec4& b) { return a.x * b.x + a.y * b.y + a.z * b.z; }

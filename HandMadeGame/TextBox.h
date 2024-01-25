@@ -7,6 +7,8 @@ namespace voi {
 	class TextBox: public Box{
 	protected:
 
+		int settedCharH = -1;
+
 		int charH;
 		int charW;
 
@@ -23,6 +25,7 @@ namespace voi {
 		float textWPercentage;
 
 		std::string text;
+		std::string backingTxt = "";
 
 	public:
 		TextBox() : Box({ 0,0,0,0 }) ,charH(0), charW(0), lineX(0), lineY(0), text("") {
@@ -96,15 +99,15 @@ namespace voi {
 			calcTextProperties();
 		}
 
-
 		virtual void setText(std::string nText) {
 			text = nText;
-			calcLinesProperties();
+			if (settedCharH < 0) calcLinesProperties();
+		//TODO:	else calcTextWrap();s
 		}
 		
 		void setText(const char* nText) { setText(std::string(nText)); }
 
-		std::string getText() const { return text; }
+		virtual std::string getText() const { return text; }
 
 		virtual void Draw() override {
 			this->Box::Draw();

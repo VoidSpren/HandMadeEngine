@@ -20,12 +20,12 @@ namespace voi {
 
 		bool over = false;
 	public:
-		Box(): engine(NULL), box({0,0,0,0}), backColor({ 255,255,255 }), borderColor({ 0,0,0 }) {}
+		Box(): engine(NULL), box{0,0,0,0}, backColor{ 255,255,255 }, borderColor{ 0,0,0 } {}
 
 		Box(Vec4i _vec)
-			:engine(NULL), box(_vec), backColor({255,255,255}), borderColor({0,0,0}) {}
+			:engine(NULL), box(_vec), backColor{255,255,255}, borderColor{0,0,0} {}
 		Box(Vec4i _vec, Pixel _backColor)
-			:engine(NULL), box(_vec), backColor(_backColor), borderColor({ 0,0,0 }) {}
+			:engine(NULL), box(_vec), backColor(_backColor), borderColor{ 0,0,0 } {}
 		Box(Vec4i _vec, Pixel _backColor, Pixel _borderColor)
 			:engine(NULL), box(_vec), backColor(_backColor), borderColor(_borderColor) {}
 
